@@ -6,7 +6,7 @@ export default {
   theme: "dark",
   tags: ["javascript", "html", "css", "mysql"],
   videoBorder: false,
-  live: "#",
+  live: "https://garaje-26c50.firebaseapp.com/",
   description:
     "Aplicación web orientada a la gestión y administración de cocheras. Implementación de reportes de ingresos y control de flujos de estacionamiento en tiempo real.",
   components: [

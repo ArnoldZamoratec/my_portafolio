@@ -6,7 +6,7 @@ export default {
   theme: "dark",
   tags: ["javascript", "html", "css", "mysql"],
   videoBorder: false,
-  live: "#",
+  live: "https://garaje-26c50.firebaseapp.com/",
   description:
     "A web application designed for garage and parking lot management. It automates income reporting and provides real-time control over parking flows, capacity tracking, and ticket billing.",
   components: [
