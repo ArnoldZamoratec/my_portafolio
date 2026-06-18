@@ -60,7 +60,18 @@ onMounted(loadPreviews);
   gap: var(--space-xl);
   padding-left: var(--space-outer);
   padding-right: var(--space-outer);
-  background-color: var(--color-beige-400);
+  
+  /* FORCE LIGHT THEME COLOR SCHEME FOR THE PROJECTS SECTION */
+  background-color: oklch(0.96 0.01 80) !important;
+  color: oklch(0.25 0.01 80) !important;
+  
+  --color-text-400: oklch(0.25 0.01 80) !important;
+  --color-text-300: oklch(0.45 0.01 80) !important;
+  --color-grayscale-500: oklch(0.88 0.01 80) !important;
+  --color-grayscale-400: oklch(0.92 0.01 80) !important;
+  --color-beige-400: oklch(0.96 0.01 80) !important;
+  --color-beige-600: oklch(0.92 0.01 80) !important;
+
   min-height: calc(var(--lvh) * 100 + var(--radius-xxl));
   padding-top: 96px;
   padding-bottom: 96px;
@@ -92,6 +103,7 @@ onMounted(loadPreviews);
       font-weight: 900;
       letter-spacing: 0.02em;
       font-size: var(--font-size-title-md);
+      color: oklch(0.25 0.01 80) !important; /* Force dark title color */
 
       @include mixins.mq("sm") {
         font-size: var(--font-size-title-lg);
@@ -121,16 +133,16 @@ onMounted(loadPreviews);
       top: 0;
       left: 0;
       transform: translateY(-100%);
-      color: var(--color-beige-400);
-      --icon-color: var(--color-beige-400);
+      color: oklch(0.96 0.01 80) !important;
+      --icon-color: oklch(0.96 0.01 80) !important;
     }
 
     &-end {
       position: absolute;
       bottom: 0;
       left: 0;
-      color: var(--color-beige-600);
-      --icon-color: var(--color-beige-600);
+      color: oklch(0.92 0.01 80) !important;
+      --icon-color: oklch(0.92 0.01 80) !important;
     }
   }
 

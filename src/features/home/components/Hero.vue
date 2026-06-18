@@ -102,20 +102,18 @@ import AppearingText from "../../../components/AppearingText.vue";
   }
 
   &-banner {
-    position: absolute;
-    bottom: 0;
-    right: -16px;
+    position: relative;
     z-index: 10;
-    transform: rotate(-5deg) translate(0, 105%);
+    transform: rotate(-5deg);
+    margin-top: var(--space-md);
+    align-self: flex-end;
 
     @include mixins.mq("sm") {
-      right: -24px;
-      transform: rotate(-5deg) translate(0, 115%);
+      margin-top: var(--space-lg);
     }
 
     @include mixins.mq("lg") {
-      right: -32px;
-      transform: rotate(-5deg) translate(0, 125%);
+      margin-top: var(--space-xl);
     }
   }
 }
