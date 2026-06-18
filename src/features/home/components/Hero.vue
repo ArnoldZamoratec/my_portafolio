@@ -7,7 +7,7 @@ import AppearingText from "../../../components/AppearingText.vue";
 </script>
 
 <template>
-  <div class="hero">
+  <section id="hero" class="hero" aria-label="Presentación">
     <div class="hero-content grid">
       <div class="hero-content-inner" id="hero-content-inner">
         <div class="hero-content-copys">
@@ -16,7 +16,7 @@ import AppearingText from "../../../components/AppearingText.vue";
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">

@@ -18,12 +18,12 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="contact grid" ref="contactElement">
+  <section id="contact-section" class="contact grid" ref="contactElement" aria-label="Contacto e Información Social">
     <div class="contact-content">
       <h2 class="contact-title" v-html="t('lets-work-together')"></h2>
       <Social variant="background" />
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">

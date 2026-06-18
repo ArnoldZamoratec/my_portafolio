@@ -48,7 +48,7 @@ watchEffect((onInvalidate) => {
 </script>
 
 <template>
-  <div class="about-content">
+  <section id="about-section" class="about-content" aria-label="Sobre Arnold Huaman">
     <div ref="contentDetailsRef" class="about-details">
       <BoxDetails @timeline:created="(tl: gsap.core.Timeline) => (tlDetailsRef = tl)" />
     </div>
@@ -61,7 +61,7 @@ watchEffect((onInvalidate) => {
     <div ref="contentProgressCountRef" class="about-progress-count">
       <ProgressCount />
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">

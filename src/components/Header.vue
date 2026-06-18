@@ -24,18 +24,11 @@ const { isDarkTheme } = useHeaderTheme({
       scrolledPastHeroVisible.value = false;
       return;
     }
-
-    if (hasScrolledIntoView) {
-      scrolledPastHeroVisible.value = true;
-    } else {
-      scrolledPastHeroVisible.value = false;
-    }
+    scrolledPastHeroVisible.value = hasScrolledIntoView;
   },
 });
 
 const handleBackClick = () => {
-  // If it's the first route the user visited, navigate to home
-  // Otherwise, go back in browser history
   if (isFirstRoute.value) {
     router.push("/");
   } else {
@@ -67,48 +60,64 @@ const getInTouchClassNames = computed(() => {
 
 <template>
   <header :class="classNames">
-    <div class="header-left">
-      <ButtonRound
-        v-if="projectId !== null"
-        variant="accent"
-        @click="handleBackClick"
-        :aria-label="t('back-to-home')"
-        :class="{ 'header-back': true, 'header-back-isProjectPage': projectId !== null }"
-        data-cursor="circle-white"
+    <nav class="header-nav" aria-label="Navegación principal">
+      <div class="header-left">
+        <!-- type="button" explícito para cumplir directivas de a11y -->
+        <ButtonRound
+          v-if="projectId !== null"
+          type="button"
+          variant="accent"
+          @click="handleBackClick"
+          :aria-label="t('back-to-home')"
+          :class="{ 'header-back': true, 'header-back-isProjectPage': projectId !== null }"
+          data-cursor="circle-white"
+          data-sound="click"
+          data-hoversound="hover"
+        >
+          <ArrowRight class="header-back-icon" />
+        </ButtonRound>
+      </div>
+
+      <div
+        :class="{
+          'header-logo': true,
+          'header-logo-isProjectPage': projectId !== null,
+          'header-logo-clickable': !scrolledPastHeroVisible,
+          'children-unclickable': true,
+        }"
+        @click="handleLogoClick"
         data-sound="click"
         data-hoversound="hover"
-      >
-        <ArrowRight class="header-back-icon" />
-      </ButtonRound>
-    </div>
-    <div
-      :class="{
-        'header-logo': true,
-        'header-logo-isProjectPage': projectId !== null,
-        'header-logo-clickable': !scrolledPastHeroVisible,
-        'children-unclickable': true,
-      }"
-      @click="handleLogoClick"
-      data-sound="click"
-      data-hoversound="hover"
-      data-cursor="circle-white"
-    >
-      <Logo class="header-logo-image" />
-    </div>
-    <div class="header-right">
-      <Button
-        renderAs="a"
-        variant="accent"
-        :aria-label="t('get-in-touch')"
-        :href="social.find((item) => item.name === 'mail')?.url ?? ''"
-        external
-        :class="getInTouchClassNames"
         data-cursor="circle-white"
-        data-hoversound="hover"
-        >{{ t("get-in-touch") }}</Button
+        aria-label="Ir al inicio"
+        role="button"
+        tabindex="0"
+        @keydown.enter="handleLogoClick"
       >
-      <SoundsToggle class="header-sounds-toggle" :isDarkTheme="isDarkTheme" v-if="isFeatureEnabled('sounds')" />
-    </div>
+        <Logo class="header-logo-image" />
+      </div>
+
+      <div class="header-right">
+        <Button
+          renderAs="a"
+          variant="accent"
+          :aria-label="t('get-in-touch')"
+          :href="social.find((item) => item.name === 'mail')?.url ?? ''"
+          external
+          :class="getInTouchClassNames"
+          data-cursor="circle-white"
+          data-hoversound="hover"
+        >
+          {{ t("get-in-touch") }}
+        </Button>
+        
+        <SoundsToggle 
+          class="header-sounds-toggle" 
+          :isDarkTheme="isDarkTheme" 
+          v-if="isFeatureEnabled('sounds')" 
+        />
+      </div>
+    </nav>
   </header>
 </template>
 
@@ -116,9 +125,6 @@ const getInTouchClassNames = computed(() => {
 .header {
   position: fixed;
   top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   left: 50%;
   transform: translateX(-50%);
   width: var(--breakpoint-xxxl);
@@ -127,19 +133,26 @@ const getInTouchClassNames = computed(() => {
   z-index: var(--z-index-header);
   height: var(--height-header);
   pointer-events: none;
-
   --scrolled: 0;
+
+  &-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
 
   &-scrolled {
     --scrolled: 1;
   }
 
   &-back {
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-    transition-delay: 0.1s;
     pointer-events: auto;
+    opacity: 0;
+    transition: opacity var(--transition);
+    transition-delay: 0.1s;
 
     &-icon {
       width: 100%;
@@ -147,21 +160,19 @@ const getInTouchClassNames = computed(() => {
     }
 
     &-isProjectPage {
-      pointer-events: auto;
       opacity: 1;
     }
   }
 
   &-left {
     position: absolute;
-    left: var(--space-outer);
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
   }
 
   &-get-in-touch {
     width: fit-content;
-
     &-isProjectPage {
       opacity: 1 !important;
     }
@@ -169,27 +180,22 @@ const getInTouchClassNames = computed(() => {
 
   &-right {
     position: absolute;
-    right: var(--space-outer);
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     pointer-events: auto;
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
-  }
-
-  &-music-toggle {
-    display: flex;
+    gap: var(--space-4);
   }
 
   &-dark {
-    color: var(--color-white-400);
-    --icon-color: var(--color-white-400);
+    color: var(--color-white);
+    --icon-color: var(--color-white);
   }
 
   &-get-in-touch {
     display: none;
-
     @include mixins.mq("md") {
       display: flex;
     }
@@ -198,8 +204,8 @@ const getInTouchClassNames = computed(() => {
   &-logo {
     cursor: pointer;
     display: flex;
-    gap: var(--space-xs);
-    transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    gap: var(--space-2);
+    transition: color var(--transition), opacity var(--transition);
     opacity: calc(1 - var(--scrolled));
     pointer-events: none;
 
@@ -208,29 +214,18 @@ const getInTouchClassNames = computed(() => {
     }
 
     @include mixins.mq("md") {
-      gap: var(--space-sm);
+      gap: var(--space-3);
     }
 
     &-isProjectPage {
-      transition: opacity 0.2s ease-in-out;
       pointer-events: none;
       opacity: 0;
     }
 
     &-image {
       width: 36px;
-
       @include mixins.mq("md") {
         width: 40px;
-      }
-    }
-
-    &-text {
-      font-weight: 900;
-      font-size: 18px;
-
-      @include mixins.mq("md") {
-        font-size: 20px;
       }
     }
   }

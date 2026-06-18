@@ -33,9 +33,9 @@ const { isTouch } = useAgent();
   <Header />
 
   <!-- main page -->
-  <div :class="{ 'home-wrapper-projectIsReady': projectVisible }">
+  <main id="main" :class="{ 'home-wrapper-projectIsReady': projectVisible }">
     <Home />
-  </div>
+  </main>
 
   <!-- overlay page -->
   <ProjectBackground />
@@ -55,6 +55,33 @@ const { isTouch } = useAgent();
 </template>
 
 <style lang="scss">
+/* Estilo del skip link oculto accesible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  
+  &:focus {
+    position: fixed;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 9999;
+    padding: var(--space-3) var(--space-6);
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    width: auto;
+    height: auto;
+    clip: auto;
+  }
+}
+
 .home-wrapper-projectIsReady {
   visibility: hidden;
   position: fixed;

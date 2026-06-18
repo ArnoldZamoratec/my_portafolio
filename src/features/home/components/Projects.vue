@@ -31,7 +31,7 @@ onMounted(loadPreviews);
 </script>
 
 <template>
-  <div class="projects">
+  <section id="projects-section" class="projects" aria-label="Proyectos de Arnold Huaman">
     <NotchSection class="projects-notch-start" />
     <NotchSection class="projects-notch-end" />
     <div class="grid">
@@ -46,7 +46,7 @@ onMounted(loadPreviews);
         <PreviewCard v-if="isFeatureEnabled('startProject')" />
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped lang="scss">

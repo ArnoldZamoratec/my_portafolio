@@ -4,6 +4,7 @@ import NotchSection from "./NotchSection.vue";
 import ButtonRound from "./ButtonRound.vue";
 import { lenis } from "../composables/useScroll";
 import ArrowRightLong from "./icons/ArrowRightLong.vue";
+import { t } from "../i18n/utils/translate";
 
 interface Props {
   withSocial?: boolean;
@@ -21,19 +22,18 @@ const { withSocial = true } = defineProps<Props>();
   <footer class="footer">
     <NotchSection class="footer-notch" />
     <div class="footer-content">
-      <div
+      <ButtonRound
+        type="button"
+        variant="border"
         class="footer-back-to-top"
-        tabindex="0"
         @click="handleBackToTop"
-        @keydown.enter="handleBackToTop"
+        :aria-label="t('back-to-home')"
         data-cursor="circle-white"
         data-sound="click"
         data-hoversound="hover"
       >
-        <ButtonRound renderAs="div" variant="border" class="children-unclickable" data-hoversound="hover">
-          <ArrowRightLong class="footer-back-to-top-icon" />
-        </ButtonRound>
-      </div>
+        <ArrowRightLong class="footer-back-to-top-icon" />
+      </ButtonRound>
       <div class="footer-top" v-if="withSocial">
         <Social />
       </div>
