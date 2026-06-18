@@ -57,28 +57,32 @@ const { isTouch } = useAgent();
 <style lang="scss">
 /* Estilo del skip link oculto accesible */
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
   
   &:focus {
-    position: fixed;
-    top: var(--space-4);
-    left: var(--space-4);
-    z-index: 9999;
-    padding: var(--space-3) var(--space-6);
-    background-color: var(--color-surface);
-    color: var(--color-primary);
-    border: 2px solid var(--color-primary);
-    border-radius: var(--radius-md);
-    width: auto;
-    height: auto;
-    clip: auto;
+    position: fixed !important;
+    top: var(--space-4) !important;
+    left: var(--space-4) !important;
+    z-index: 9999 !important;
+    padding: var(--space-3) var(--space-6) !important;
+    background-color: var(--color-surface) !important;
+    color: var(--color-primary) !important;
+    border: 2px solid var(--color-primary) !important;
+    border-radius: var(--radius-md) !important;
+    width: auto !important;
+    height: auto !important;
+    clip: auto !important;
+    clip-path: none !important;
+    white-space: normal !important;
   }
 }
 
