@@ -6,7 +6,7 @@ export default {
   theme: "light",
   tags: ["javascript", "firebase", "html", "css"],
   videoBorder: false,
-  live: "#",
+  live: "https://bodega-difital.web.app/",
   source: "https://github.com/ArnoldZamoratec/mi-bodega-digital",
   description:
     "Plataforma web para la gestión eficiente de inventarios comerciales. Construido utilizando JavaScript y Firebase para el manejo y sincronización de datos en tiempo real.",
